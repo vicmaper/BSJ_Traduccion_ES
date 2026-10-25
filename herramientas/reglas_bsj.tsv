@@ -1,0 +1,42 @@
+# reglas_bsj.tsv - se puede editar. Columnas separadas por TAB.
+# CORREGIR <regex> <reemplazo> <motivo>   -> se cambia sola
+# AVISO <regex> <motivo> <si = distingue mayúsculas>   -> solo se avisa
+CORREGIR	\bTatsube\b	Tatsunobe	nombre: Tatsunobe (龍辺)
+CORREGIR	\bSuzuko\b	Rinko	nombre: Rinko (鈴子)
+CORREGIR	\bMananose\b	Manase	nombre: Manase
+CORREGIR	\bKasumi Munefuyu\b	Kurana Munefuyu	nombre: Kurana
+CORREGIR	\bYuuda\b	Kurana	nombre: Kurana (幽雫)
+CORREGIR	\bAkakage\b	Akikage	nombre: Akikage
+CORREGIR	\b(Jinno|Kamino) Akikage\b	Shinno Akikage	nombre: Shinno
+CORREGIR	\bLebenstein\b	Löwenstein	nombre: Löwenstein
+CORREGIR	\bLowenstein\b	Löwenstein	nombre: Löwenstein
+CORREGIR	\bGehou\b	Kaihou	término: 解法 = Kaihou
+CORREGIR	\bTatari(e)?s\b	Tatari	término: el plural es «las Tatari»
+CORREGIR	\bahorita\b	ahora	mexicanismo: ahorita → ahora
+CORREGIR	\bAhorita\b	Ahora	mexicanismo: ahorita → ahora
+CORREGIR	\bnomás\b	solo	mexicanismo: nomás → solo
+CORREGIR	\bNomás\b	Solo	mexicanismo: nomás → solo
+CORREGIR	\bya mero\b	ya casi	mexicanismo: ya mero → ya casi
+CORREGIR	\bpopote\b	pajita	mexicanismo: popote → pajita
+CORREGIR	\bcharola\b	bandeja	mexicanismo: charola → bandeja
+CORREGIR	\balberca\b	piscina	mexicanismo: alberca → piscina
+CORREGIR	\bcubeta\b	balde	mexicanismo: cubeta → balde
+CORREGIR	\bcachetes\b	mejillas	mexicanismo: cachetes → mejillas
+CORREGIR	\bcalzones\b	ropa interior	mexicanismo: calzones → ropa interior
+CORREGIR	\bmemorama\b	juego de memoria	mexicanismo: memorama
+CORREGIR	\bcaminadora\b	cinta de correr	mexicanismo: caminadora
+AVISO	-(sama|san|kun|chan|dono|tan)\b	honorífico japonés (usar señor/señora/señorita u omitir)	
+AVISO	\b(vosotros|vosotras|vuestro|vuestra|vuestros|vuestras|habéis|sois|tenéis|podéis|queréis|sabéis|estáis|vais|hacéis|decís|venid|os)\b	forma de España (usar ustedes)	si
+AVISO	\b(gilipollas|chaval|chavala|ordenador|mola|molar|hostia|coger|cogí|cogió|cogido|cojo)\b	palabra de España	
+AVISO	\b(pinche|chingar|chingad\w*|chinga|verga|culero|pendej\w*|cabr[oó]n\w*|joder|jodid\w*|mierda|carajo|pedo|güey|wey|madrazo\w*|puta\w*|puto)\b	grosería fuerte (revisar si el japonés lo amerita)	
+AVISO	\b(neta|órale|ándale|ándele|ándenle|párenle|chido|chingón|chafa|nel|quiubo|qué onda|chamac[oa]s?|mens[oa]s?|tantito|relajo|madrear|híjole|ni modo|platic\w*|platiqu\w*|plática|pos|luego luego|desmadre|chamarra|broncas|échale ganas|échenle ganas|echarle ganas|gacho|buena onda|sacar de onda|simón|regadera|pelón|chuec[oa]s?|apenad[oa]s?|apenes|apenando|chaparr\w+|güer[oa]|se me hace|se me hizo|¿a poco|coraje|latos[oa]|flojera|flojísim[oa]|se vale|ni de chiste|la regu[eé]|friegues|de malas|carro|recarg(ado|ada|ó|ándose))\b	mexicanismo (usar español neutro)	
+AVISO	「Este, |, este,|, este…	muletilla «este» (usar «eh», «bueno»)	si
+AVISO	\bEikou\b	nombre: Harumitsu (salvo el juego de palabras con la lectura)	si
+AVISO	\bKasumi\b	nombre: Kurana	si
+AVISO	[ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺａ-ｚ０-９]	letra o número de ancho completo	
+AVISO	»(?=\{/v\})	¿» en lugar de 」?	
+CORREGIR	\bHiiragi Seishirou\b	Hiiragi Seijuurou	nombre: 柊聖十郎 = Hiiragi Seijuurou (Seishirou es 緋衣征志郎)
+AVISO	(?<![\wáéíóúñ])jal(a|as|an|ar|ó|é|aron|ando|ado|ada|ándo\w*|arl[oa]|ón|oneo)\b	mexicanismo: jalar → tirar de	
+CORREGIR	\bMunefuyu Yoshizuku\b	Kurana Munefuyu	nombre: 幽雫宗冬 = Kurana Munefuyu
+CORREGIR	\bMunechika Yoshizuku\b	Kurana Munechika	nombre: 幽雫宗近 = Kurana Munechika
+CORREGIR	\bYoshizuku\b	Kurana	nombre: 幽雫 = Kurana

@@ -1,0 +1,179 @@
+==========================================================================================
+  SOUSHUU SENSHINKAN GAKUEN: BANSENJIN  -  KIT DE TRADUCCION AL ESPAÑOL  (version 1.0)
+==========================================================================================
+Dudas, errores y sugerencias: Discord  https://discord.gg/k3Zfp85jMr
+
+Este kit sirve para hacer TU propia traduccion del juego en un CSV que se abre con Excel o
+LibreOffice, revisarla y ponerla en el juego. Si tienes un archivo de traduccion compartido
+(BSJ_es.csv, sin japones), ponlo en la carpeta "traduccion" y el kit lo usa como punto de partida.
+
+El kit NO trae archivos del juego ni el texto japones. Todo se saca de TU copia del juego,
+en tu computadora. Tus data1.dat, data2.dat y malie.exe nunca se modifican: el kit agrega un archivo
+nuevo (data3.dat) que el juego carga encima, y una copia del ejecutable (malie_es.exe).
+
+
+------------------------------------------------------------------------------------------
+ 1. EDICION DEL JUEGO QUE NECESITAS
+------------------------------------------------------------------------------------------
+  Juego ........ Soushuu Senshinkan Gakuen: Bansenjin (light, 2017), version de PC en disco
+  malie.exe .... version 1.1.0.0 (2017-09-06)   md5 5ea9b73378814b1dbc178449136b2266
+  exec.dat ..... (dentro de data2.dat)           md5 2b08465872c5cd034c2a633b6e99c836
+  Motor ........ MALIE.  Sin parches oficiales.
+
+El kit comprueba la edicion solo. Si tu copia es distinta, se detiene SIN cambiar nada
+y te dice el codigo md5 de tu copia: mandalo al Discord y te ayudamos a adaptarlo.
+Para sacar el md5 tu mismo (CMD):   certutil -hashfile "C:\ruta\del\juego\malie.exe" MD5
+
+
+------------------------------------------------------------------------------------------
+ 2. QUE NECESITAS
+------------------------------------------------------------------------------------------
+  OPCION A (lo mas facil): BSJ_Kit.exe  (descargalo de la seccion "Releases" de GitHub).
+                           No hay que instalar nada.
+  OPCION B: Python 3.10 o mas nuevo (python.org; marca "Add Python to PATH" al instalar)
+            y luego doble clic en INSTALAR_REQUISITOS.bat (necesita internet, una sola vez).
+
+  Espacio libre: unos 400 MB para la carpeta "trabajo" y el data3.dat.
+  Para editar el CSV: LibreOffice Calc (gratis, recomendado) o Excel.
+
+
+------------------------------------------------------------------------------------------
+ 3. PREPARAR EL KIT Y PROBARLO
+------------------------------------------------------------------------------------------
+  1) Descomprime el kit en una carpeta (ejemplo: C:\BSJ_Kit). No dentro de la carpeta del juego.
+  2) Abre BSJ_Kit.exe (o INICIAR_KIT.bat).
+  3) En "Carpeta del juego", pulsa "Examinar..." y elige la carpeta raiz del juego
+     (la que tiene malie.exe, data1.dat y data2.dat).
+  4) Pulsa "1. Sacar el CSV de mi juego". Espera a que diga LISTO (1-3 minutos).
+  5) Pulsa "3. Generar e instalar la traduccion (data3.dat)".
+     La primera vez tarda un poco mas: crea la interfaz y la fuente en español
+     a partir de tu copia (unos minutos).
+  6) Pulsa "4. Crear malie_es.exe" (menus de la ventana en español).
+  7) Juega abriendo malie_es.exe (o malie.exe; con malie.exe solo los menus de Windows
+     quedan en japones).
+
+  Para volver al japones: boton "Quitar la traduccion" (renombra data3.dat).
+
+
+------------------------------------------------------------------------------------------
+ 4. HACER O CORREGIR UNA TRADUCCION
+------------------------------------------------------------------------------------------
+  1) Haz los pasos 1 a 4 de la seccion 3.
+     El CSV queda en:   trabajo\BSJ_TRADUCCION.csv
+     Si pusiste un BSJ_es.csv y quieres empezar desde cero (sin usarlo), en CMD:
+        python herramientas\bsj_kit.py extraer --forzar --vacio
+  2) Traduce. Tienes dos formas:
+     a) En la ventana del kit, pestaña "2. Editar mensajes": buscas, editas y ves al momento
+        si hay errores y cuantos renglones ocupa. Pulsa "Guardar CSV de trabajo".
+     b) Con LibreOffice o Excel: abre trabajo\BSJ_TRADUCCION.csv y escribe en la columna
+        "spanish". NO cambies la columna "id". Puedes guardar con otro nombre.
+        - LibreOffice: al abrir elige "Juego de caracteres: Unicode (UTF-8)", separador "Coma".
+          Al guardar: "Usar el formato CSV" y otra vez UTF-8.
+        - Excel: Datos > Desde texto/CSV > Origen: 65001 Unicode (UTF-8).
+          Guarda como "CSV UTF-8 (delimitado por comas)".
+        El kit acepta coma, punto y coma o tabulador, y UTF-8 o ANSI (pero ANSI puede romper
+        los acentos: usa UTF-8).
+     Nombres y opciones de eleccion (y los nombres del historial) estan aparte, en la pestaña
+     "3. Nombres y opciones" (archivo trabajo\BSJ_NOMBRES_Y_OPCIONES.tsv). Hay poco espacio:
+     24 caracteres o menos.
+  3) Pulsa "2. Revisar y corregir mi CSV..." y elige tu archivo (o la carpeta de partes).
+     El kit corrige solo lo seguro, guarda en el CSV de trabajo (con respaldo) y escribe
+     el reporte en trabajo\reportes\reporte_revision.txt.
+  4) Pulsa "3. Generar e instalar". Los mensajes con error se quedan en japones y se
+     listan en trabajo\reportes\errores_al_generar.txt para que los arregles.
+
+  Trabajo en equipo: "Partir el CSV en archivos de 500" crea trabajo\partes\. Cada quien
+  traduce sus partes y al final se pasan todas por el paso 2 (eligiendo la carpeta).
+
+  Compartir tu traduccion: "5. Compartir mi traduccion (sin japones)" crea
+  trabajo\compartir\BSJ_es.csv y cadenas_es.tsv. Esos dos archivos se pueden compartir.
+  Quien los reciba los pone en la carpeta "traduccion" del kit (reemplazando los que hay)
+  y vuelve a hacer el paso 1 con --forzar (o borra la carpeta "trabajo").
+  NUNCA compartas trabajo\BSJ_TRADUCCION.csv, ni la carpeta trabajo\original, ni el
+  data3.dat: llevan el texto y los archivos del juego.
+
+
+------------------------------------------------------------------------------------------
+ 5. REGLAS DEL CSV (lo que revisa el kit)
+------------------------------------------------------------------------------------------
+  Columnas: id, voice, japanese, spanish, status. Solo importan "id" y "spanish".
+  Un mensaje = una pagina de texto del juego (puede tener varios parrafos).
+
+  MARCAS: copialas igual que en el japones, en el mismo orden:
+    {v:v_mzk0001} ... {/v}   voz (inicio y fin)
+    {end}                    espera a que pulses (misma cantidad que el japones)
+    {u000A}                  salto de parrafo
+    {uXXXX}                  otros controles del motor
+    {n}                      salto de renglon: NO hace falta, el kit los pone solo
+  Si las marcas no coinciden, ese mensaje se queda en japones (para que el juego no falle).
+  En casos simples (una sola voz o un solo {end}) el kit las arregla solo.
+
+  TAMAÑO: 690 pixeles por renglon (unas 75 letras).
+    - La mayoria de los mensajes salen en la VENTANA DE ABAJO (con el nombre de quien habla):
+      ahi caben 4 renglones. Si el japones es corto (sin {u000A}), el español debe caber en 4.
+    - Los mensajes con {u000A} salen en PANTALLA COMPLETA: hasta 16 renglones.
+  Si no cabe, acorta el texto. El kit te dice cuantos renglones ocupa y cual es el maximo.
+
+  ESTILO DEL GRUPO (avisos, no impiden generar):
+    - Español latinoamericano neutro (sin mexicanismos ni formas de España).
+    - Dialogos entre 「 」 como el original. Puntos suspensivos «…» (un caracter).
+    - Sin honorificos japoneses (-san, -kun, -sama...). Se dejan senpai, kouhai y sensei.
+    - Nombres segun VNDB (Yoshiya, Shizuno, Nanten, Seijuurou, Seishirou, Kurana, Shinno...).
+    - Escenas para adultos: traduccion fiel, sin agregar ni quitar.
+  Puedes agregar tus propias reglas en herramientas\reglas_bsj.tsv (separado por tabulador):
+    CORREGIR <expresion regular> <reemplazo> <motivo>     se cambia sola
+    AVISO    <expresion regular> <motivo> <si=mayusculas>  solo se avisa
+
+
+------------------------------------------------------------------------------------------
+ 6. QUE HACE CADA HERRAMIENTA (para usarlas sueltas)
+------------------------------------------------------------------------------------------
+  Con Python, desde la carpeta del kit (CMD):
+    python herramientas\bsj_kit.py extraer "C:\ruta\del\juego"     paso 1 (CSV desde tu juego)
+    python herramientas\bsj_kit.py revisar mi_archivo.csv           paso 2 (revisa y corrige)
+    python herramientas\bsj_kit.py validar mi_archivo.csv           solo revisa, no cambia nada
+    python herramientas\bsj_kit.py generar                          paso 3 (data3.dat)
+    python herramientas\bsj_kit.py exe                              paso 4 (malie_es.exe)
+    python herramientas\bsj_kit.py compartir                        paso 5 (sin japones)
+    python herramientas\bsj_kit.py dividir 500                      partes de 500 mensajes
+  Tambien estan los .bat: 1_EXTRAER_CSV.bat ... 5_COMPARTIR_SIN_JAPONES.bat.
+
+  Herramientas internas (carpeta herramientas):
+    pl_extraer.py        lee los .dat de MALIE (solo lectura)
+    malie_cipher.py      cifrado de los .dat (clave "Soushuu Senshinkan Gakuen Bansenjin")
+    pl_exec_tool.py      guion: exec.dat <-> CSV
+    pl_cadenas.py        nombres y opciones (textos fuera de la tabla de mensajes)
+    pl_build.py          escribe el data3.dat
+    bsj_estilo.py, revisar_bsj.py, avisos_auto.py, reglas_bsj.tsv   revision y correcciones automaticas
+    hmj_wrap.py          saltos de renglon por pixeles (anchos_fuente.json)
+    hmj_fuente_es.py     adapta la fuente del juego para que no se corten g, j, p, q, y, ¿
+    bsj_gen_ui.py, bsj_gen_config.py, bsj_ui.py, hmj_ui.py, hmj_dzi.py   rehacen la interfaz en español desde tu copia
+    bsj_exe_parche.json  cambios para crear malie_es.exe desde tu malie.exe (solo v1.1.0.0)
+
+
+------------------------------------------------------------------------------------------
+ 7. STEAM DECK / LINUX
+------------------------------------------------------------------------------------------
+  Haz los pasos en Windows y copia la carpeta del juego completa (con data3.dat y malie_es.exe)
+  a la Steam Deck. En Steam: "Añadir un juego que no es de Steam" > malie_es.exe >
+  Propiedades > Compatibilidad > Proton Experimental.
+  Si ves cuadros en lugar de letras, en Opciones de lanzamiento:  LANG=ja_JP.UTF-8 %command%
+  Controles recomendados (plantilla "Teclado y raton"): A=Enter, B=Esc, Y=B (historial),
+  L2=Ctrl (saltar), panel izquierdo como rueda del raton.
+  En Linux tambien puedes usar el kit con Python:  python3 herramientas/bsj_gui.py
+
+
+------------------------------------------------------------------------------------------
+ 8. PROBLEMAS FRECUENTES
+------------------------------------------------------------------------------------------
+  "no esta data1.dat/data2.dat"         Elegiste otra carpeta. Elige la que tiene malie.exe.
+  "EDICION DISTINTA"          Tu copia no es la de este kit. Pide ayuda en el Discord.
+  "no caben los textos"       Nombres u opciones demasiado largos: acortalos (24 o menos).
+  Un mensaje sale en japones  Tiene un error de marcas o no cabe (4 renglones abajo / 16): mira
+                              trabajo\reportes\errores_al_generar.txt
+  Acentos raros (Ã©)          Guardaste el CSV en ANSI. Guardalo en UTF-8.
+  El antivirus se queja       BSJ_Kit.exe se arma en GitHub con PyInstaller; a veces los
+                              antivirus desconfian de esos .exe. Puedes usar la opcion B (Python).
+  Volver a empezar            Borra la carpeta "trabajo" (pierdes tu CSV: respaldalo antes).
+
+Discord: https://discord.gg/k3Zfp85jMr
